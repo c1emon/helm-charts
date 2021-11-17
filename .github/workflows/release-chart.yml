@@ -29,6 +29,6 @@ jobs:
         with: 
           charts_dir: charts
           # config: cr.yaml
-          charts_repo_url: gh.clemon.icu
+          charts_repo_url: http://helm-charts.clemon.icu
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
