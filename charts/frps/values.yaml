@@ -65,8 +65,6 @@ ingress:
   className: "nginx"
   autoHttpsIssuer: "letsencrypt-prod"
   annotations: {}
-  hosts: []
-  tls: []
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
