@@ -28,9 +28,14 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - name: pod-bind
-              containerPort: {{ include "frps.config.podBind" . }}
+            - name: bind-tcp
+              containerPort: {{ include "frps.config.bind.tcp.pod" . }}
               protocol: TCP
+            {{- if .Values.frps.bind.udp }}
+            - name: bind-udp
+              containerPort: {{ include "frps.config.bind.udp.pod" . }}
+              protocol: UDP
+            {{- end }}
             {{- if .Values.frps.httpEndpoint }}
             - name: http
               containerPort: {{ include "frps.config.http.endpoint.port" . }}

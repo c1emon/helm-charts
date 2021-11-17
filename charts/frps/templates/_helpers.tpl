@@ -8,12 +8,20 @@ Expand the name of the chart.
 {{/*
 Frps config bind
 */}}
-{{- define "frps.config.podBind" -}}
-{{- default 7000 .Values.frps.podBind -}}
+{{- define "frps.config.bind.tcp.pod" -}}
+{{- default 7000 .Values.frps.bind.tcp.pod -}}
 {{- end }}
 
-{{- define "frps.config.exposedBind" -}}
-{{- default 7000 .Values.frps.exposedBind -}}
+{{- define "frps.config.bind.tcp.ing" -}}
+{{- default 7000 .Values.frps.bind.tcp.ing -}}
+{{- end }}
+
+{{- define "frps.config.bind.udp.pod" -}}
+{{- default 7000 .Values.frps.bind.udp.pod -}}
+{{- end }}
+
+{{- define "frps.config.bind.udp.ing" -}}
+{{- default 7000 .Values.frps.bind.udp.ing -}}
 {{- end }}
 
 {{- define "frps.config.dashboard.port" -}}

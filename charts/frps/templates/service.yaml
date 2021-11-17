@@ -7,10 +7,16 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ include "frps.config.exposedBind" . }}
-      targetPort: pod-bind
+    - port: {{ include "frps.config.bind.tcp.ing" . }}
+      targetPort: bind-tcp
       protocol: TCP
-      name: frps-bind
+      name: bind-tcp
+    {{- if .Values.frps.bind.udp }}
+    - port: {{ include "frps.config.bind.udp.ing" . }}
+      targetPort: bind-udp
+      protocol: UDP
+      name: bind-udp
+    {{- end }}
     {{- if .Values.frps.dashboard }}
     - port: 8081
       targetPort: dashboard

@@ -13,8 +13,6 @@ nameOverride: ""
 fullnameOverride: ""
 
 frps:
-  podBind: 7000
-  exposedBind: 7000
   httpEndpoint:
     podPort: 80
     hosts: []
@@ -26,6 +24,13 @@ frps:
   dashboard: 
     port: 7500
     host: "dashboard.frp.example.com"
+  bind: 
+    tcp: 
+      pod: 7000
+      ing: 7000
+    udp: {}
+      # pod: 7000
+      # ing: 7000
   config:
     name: ""
     path: "/etc/frp/frps.ini"
