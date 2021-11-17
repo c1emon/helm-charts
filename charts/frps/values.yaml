@@ -1,0 +1,87 @@
+# Default values for frps.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: snowdreamtech/frps
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+frps:
+  podBind: 7000
+  exposedBind: 7000
+  httpEndpoint:
+    podPort: 80
+    hosts: []
+      # - host: "a.c"
+      #   tls: true
+      # - host: "b.c"
+      #   tls: true
+  ports: {}
+  dashboard: 
+    port: 7500
+    host: "dashboard.frp.example.com"
+  config:
+    name: ""
+    path: "/etc/frp/frps.ini"
+    content: |-
+      [common]
+      bind_addr = 0.0.0.0
+      bind_port = 7000
+      bind_udp_port = 7000
+      vhost_http_port = 7001
+      subdomain_host = frps
+
+      #dash board
+      enable_prometheus = true
+      dashboard_addr = 0.0.0.0
+      dashboard_port = 7000
+
+      # auth token
+      token = token123
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: "nginx"
+  autoHttpsIssuer: "letsencrypt-prod"
+  annotations: {}
+  hosts: []
+  tls: []
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

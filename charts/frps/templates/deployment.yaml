@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "frps.fullname" . }}
+  labels:
+    {{- include "frps.labels" . | nindent 4 }}
+
+spec:
+  selector:
+    matchLabels:
+      {{- include "frps.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "frps.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "frps.serviceAccountName" . }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: pod-bind
+              containerPort: {{ include "frps.config.podBind" . }}
+              protocol: TCP
+            {{- if .Values.frps.httpEndpoint }}
+            - name: http
+              containerPort: {{ include "frps.config.http.endpoint.port" . }}
+              protocol: TCP
+            {{- end }}
+            {{- if .Values.frps.dashboard }}
+            - name: dashboard
+              containerPort: {{ include "frps.config.dashboard.port" . }}
+              protocol: TCP
+            {{- end }}
+            {{- if .Values.frps.ports }}
+            {{- include "frps.config.deploy.ports" . | nindent 12 }}
+            {{- end }}
+          volumeMounts:
+            - name: config-vol
+              mountPath: {{ include "frps.config.path" . }}
+              subPath: frps.ini
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: config-vol
+          configMap:
+            name: {{ include "frps.config.name" . }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
