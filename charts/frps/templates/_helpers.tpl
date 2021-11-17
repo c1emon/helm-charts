@@ -34,11 +34,11 @@ Frps config bind
 
 {{- define "frps.config.name" -}}
 {{- $defaultConfig := printf "%s-ini" .Chart.Name -}}
-{{- .Values.frps.config.name | default $defaultConfig | quote -}}
+{{- .Values.frps.config.mapName | default $defaultConfig | quote -}}
 {{- end }}
 
 {{- define "frps.config.path" -}}
-{{- default "/etc/frp" .Values.frps.config.path -}}
+{{- default "/etc/frp/frps.ini" .Values.frps.config.path -}}
 {{- end }}
 
 {{- define "frps.config.deploy.ports" -}}

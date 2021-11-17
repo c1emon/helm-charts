@@ -32,7 +32,7 @@ frps:
       # pod: 7000
       # ing: 7000
   config:
-    name: ""
+    mapName: ""
     path: "/etc/frp/frps.ini"
     content: |-
       [common]
@@ -76,11 +76,11 @@ resources: {}
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
+  #   cpu: 500m
+  #   memory: 256Mi
   # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+  #   cpu: 50m
+  #   memory: 64Mi
 
 nodeSelector: {}
 
