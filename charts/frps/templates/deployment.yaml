@@ -58,7 +58,7 @@ spec:
       volumes:
         - name: config-vol
           configMap:
-            name: {{ (include "frps.config.name" . ) | quote }}
+            name: {{ ( include "frps.config.name" . ) | quote }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -79,7 +79,7 @@ Frps config bind
 
 {{- define "frps.config.ingress.tls" }}
 {{- if .Values.frps.dashboard.tls }}
-{{- $dashBoardHost := (include "frps.config.dashboard.host" . ) }}
+{{- $dashBoardHost := ( include "frps.config.dashboard.host" . ) }}
 - hosts:
     - {{ $dashBoardHost | quote }}
   secretName: {{ $dashBoardHost | replace "." "-" | printf "%s-tls-cert" | quote }}
