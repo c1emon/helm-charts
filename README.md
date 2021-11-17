@@ -1,2 +1,1 @@
-# helm-charts
-helm chart repo
+# helm charts repo release
