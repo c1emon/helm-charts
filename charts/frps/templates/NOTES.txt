@@ -17,7 +17,7 @@ Then you should add the following TCP/UDP ports to ingress controller with servi
 Dashboard: {{ include "frps.config.dashboard.host" . }}
 {{- end }}
 
-{{- if .Values.frps.httpEndpoint }}
+{{- if .Values.frps.httpEndpoint.hosts }}
 Http(s):
 {{- range .Values.frps.httpEndpoint.hosts }}
 {{ .host }}
