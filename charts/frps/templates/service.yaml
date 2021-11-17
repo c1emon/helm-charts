@@ -30,7 +30,7 @@ spec:
       name: http
     {{- end }}
     {{- if .Values.frps.ports }}
-    {{- include "frps.config.svc.ports" . | indent 4 }}
+    {{- include "frps.config.svc.extPorts" . | indent 4 }}
     {{- end }}
   selector:
     {{- include "frps.selectorLabels" . | nindent 4 }}

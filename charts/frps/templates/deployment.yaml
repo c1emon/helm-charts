@@ -47,7 +47,7 @@ spec:
               protocol: TCP
             {{- end }}
             {{- if .Values.frps.ports }}
-            {{- include "frps.config.deploy.ports" . | nindent 12 }}
+            {{- include "frps.config.pod.extPorts" . | nindent 12 }}
             {{- end }}
           volumeMounts:
             - name: config-vol
@@ -58,7 +58,7 @@ spec:
       volumes:
         - name: config-vol
           configMap:
-            name: {{ include "frps.config.name" . }}
+            name: {{ (include "frps.config.name" . ) | quote }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

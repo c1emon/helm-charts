@@ -32,11 +32,8 @@ spec:
     {{- end }}
   {{- end }}
   rules:
-    {{- if .Values.frps.httpEndpoint }}
-    {{- include "frps.config.ingress.hosts" . | indent 4 }}
-    {{- end }}
-    {{- if .Values.frps.dashboard }}
-    - host: {{ include "frps.config.dashboard.host" . }}
+  {{- if .Values.frps.dashboard }}
+    - host: {{ (include "frps.config.dashboard.host" .) | quote }}
       http:
         paths:
         - path: /
@@ -46,5 +43,8 @@ spec:
               name: {{ include "frps.fullname" . }}
               port:
                 number: 8081
+    {{- end }}
+    {{- if .Values.frps.httpEndpoint }}
+    {{- include "frps.config.ingress.hosts" . | indent 4 }}
     {{- end }}
 {{- end }}

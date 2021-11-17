@@ -29,29 +29,29 @@ Frps config bind
 {{- end }}
 
 {{- define "frps.config.dashboard.host" -}}
-{{- default "dashboard.frp.example.com" .Values.frps.dashboard.host | quote -}}
+{{- default "dashboard.frp.example.com" .Values.frps.dashboard.host -}}
 {{- end }}
 
 {{- define "frps.config.name" -}}
 {{- $defaultConfig := printf "%s-ini" .Chart.Name -}}
-{{- .Values.frps.config.mapName | default $defaultConfig | quote -}}
+{{- .Values.frps.config.mapName | default $defaultConfig -}}
 {{- end }}
 
 {{- define "frps.config.path" -}}
 {{- default "/etc/frp/frps.ini" .Values.frps.config.path -}}
 {{- end }}
 
-{{- define "frps.config.deploy.ports" -}}
+{{- define "frps.config.pod.extPorts" -}}
 {{- range .Values.frps.ports }}
 - name: {{ .name }}
-  containerPort: {{ .local }}
+  containerPort: {{ .podPort }}
   protocol: {{ default "TCP" .protocol }}
 {{- end }}
 {{- end }}
 
-{{- define "frps.config.svc.ports" -}}
+{{- define "frps.config.svc.extPorts" -}}
 {{- range .Values.frps.ports }}
-- port: {{ .remote }}
+- port: {{ .svcPort }}
   targetPort: {{ .name }}
   protocol: {{ default "TCP" .protocol }}
   name: {{ .name }}
@@ -78,6 +78,12 @@ Frps config bind
 {{- end }}
 
 {{- define "frps.config.ingress.tls" }}
+{{- if .Values.frps.dashboard.tls }}
+{{- $dashBoardHost := (include "frps.config.dashboard.host" . ) }}
+- hosts:
+    - {{ $dashBoardHost | quote }}
+  secretName: {{ $dashBoardHost | replace "." "-" | printf "%s-tls-cert" | quote }}
+{{- end }}
 {{- range .Values.frps.httpEndpoint.hosts }}
 {{- if .tls }}
 - hosts:
