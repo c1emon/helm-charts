@@ -25,9 +25,32 @@ serviceAccount:
 
 podAnnotations: {}
 
+containerPort: 80
+
+livenessProbe:
+  httpGet: # 通过httpget检查健康，返回200-399之间，则认为容器正常
+    path: /healthz
+    port: 8080 # 端口
+    scheme: HTTP # 协议
+  initialDelaySeconds: 30 # 表明第一次检测在容器启动后多长时间后开始
+  timeoutSeconds: 5 # 检测的超时时间
+  periodSeconds: 30 # 检查间隔时间
+  successThreshold: 1 # 成功门槛
+  failureThreshold: 5 # 失败门槛，连接失败5次
+
+readinessProbe:
+  httpGet:
+    path: /healthz
+    port: 8080
+    scheme: HTTP
+  initialDelaySeconds: 30
+  timeoutSeconds: 5
+  periodSeconds: 10
+  successThreshold: 1
+  failureThreshold: 5
+
 service:
   type: ClusterIP
-  port: 80
 
 ingress:
   enabled: false
@@ -45,17 +68,17 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-resources: {}
+resources: 
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+  limits:
+    cpu: 100m
+    memory: 50Mi
+  requests:
+    cpu: 10m
+    memory: 10Mi
 
 nodeSelector: {}
 
