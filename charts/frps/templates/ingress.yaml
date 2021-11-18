@@ -39,7 +39,7 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: {{ include "frps.fullname" . }}
+              name: {{ include "frps.fullname" . }}-http
               port:
                 number: 8081
     {{- end }}

@@ -71,7 +71,7 @@ Frps config bind
       pathType: Prefix
       backend:
         service:
-          name: {{ include "frps.fullname" $ }}
+          name: {{ include "frps.fullname" $ }}-http
           port:
             number: 80
 {{- end }}
