@@ -41,4 +41,15 @@ entries:
     urls:
     - https://github.com/cjw7360/helm-charts/releases/download/frps-0.1.0/frps-0.1.0.tgz
     version: 0.1.0
-generated: "2021-11-18T08:36:27.968304498Z"
+  hexo:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2021-11-18T13:48:39.646659752Z"
+    description: A Helm chart for Hexo
+    digest: 3e7001d23dcfeb905da5dfe0ab27e3ed805764b80ae4e916fa33b6bb3ebbec8b
+    name: hexo
+    type: application
+    urls:
+    - https://github.com/cjw7360/helm-charts/releases/download/hexo-0.1.0/hexo-0.1.0.tgz
+    version: 0.1.0
+generated: "2021-11-18T13:48:39.646673852Z"
