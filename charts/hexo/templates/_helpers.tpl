@@ -1,7 +1,21 @@
 {{/*
+Common phase there
+*/}}
+
+{{- define "ingress.apiversion" -}}
+{{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1
+{{- else if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1beta1
+{{- else -}}
+apiVersion: extensions/v1beta1
+{{- end }}
+{{- end }}
+
+{{/*
 Expand the name of the chart.
 */}}
-{{- define "static-site.name" -}}
+{{- define "hexo.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +24,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "static-site.fullname" -}}
+{{- define "hexo.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +40,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "static-site.chart" -}}
+{{- define "hexo.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "static-site.labels" -}}
-helm.sh/chart: {{ include "static-site.chart" . }}
-{{ include "static-site.selectorLabels" . }}
+{{- define "hexo.labels" -}}
+helm.sh/chart: {{ include "hexo.chart" . }}
+{{ include "hexo.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +59,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "static-site.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "static-site.name" . }}
+{{- define "hexo.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "hexo.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "static-site.serviceAccountName" -}}
+{{- define "hexo.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "static-site.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "hexo.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
