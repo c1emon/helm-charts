@@ -1,0 +1,2 @@
+Use image: {{ (include "image" .) | quote }}
+Access blog at: http{{ if .Values.ingress.certManagerIssuer }}s{{ end }}://{{ .Values.ingress.host }}

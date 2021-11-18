@@ -1,0 +1,78 @@
+# Default values for hexo.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: nginx
+  pullPolicy: IfNotPresent
+  dig: "233"
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+containerPort: 80
+
+livenessProbe:
+  httpGet: # 通过httpget检查健康，返回200-399之间，则认为容器正常
+    path: /healthz
+    port: 8080 # 端口
+    scheme: HTTP # 协议
+  initialDelaySeconds: 30 # 表明第一次检测在容器启动后多长时间后开始
+  timeoutSeconds: 5 # 检测的超时时间
+  periodSeconds: 30 # 检查间隔时间
+  successThreshold: 1 # 成功门槛
+  failureThreshold: 5 # 失败门槛，连接失败5次
+
+readinessProbe:
+  httpGet:
+    path: /healthz
+    port: 8080
+    scheme: HTTP
+  initialDelaySeconds: 30
+  timeoutSeconds: 5
+  periodSeconds: 10
+  successThreshold: 1
+  failureThreshold: 5
+
+service:
+  type: ClusterIP
+
+ingress:
+  enabled: true
+  className: "nginx"
+  certManagerIssuer: "letsencrypt-prod"
+  host: "blog.example.com"
+
+resources: 
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    cpu: 100m
+    memory: 50Mi
+  requests:
+    cpu: 10m
+    memory: 10Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
