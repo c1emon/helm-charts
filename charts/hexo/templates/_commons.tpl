@@ -10,8 +10,8 @@ apiVersion: extensions/v1beta1
 
 {{- define "image" -}}
 {{- if .Values.image.dig }}
-{{ printf "%s@%s" .Values.image.repository .Values.image.dig }}
+{{- printf "%s@%s" .Values.image.repository .Values.image.dig }}
 {{- else -}}
-{{ printf "%s:%s" .Values.image.repository (.Values.image.tag | default .Chart.AppVersion) }}
+{{- printf "%s:%s" .Values.image.repository (.Values.image.tag | default "latest") }}
 {{- end }}
 {{- end }}
