@@ -44,6 +44,16 @@ entries:
   hexo:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2021-11-18T14:10:27.911882728Z"
+    description: A Helm chart for Hexo
+    digest: 5760f7e4fcdf020d9c5483ddf28095d251d2f6c8a0c968714b24e3b94ec12980
+    name: hexo
+    type: application
+    urls:
+    - https://github.com/cjw7360/helm-charts/releases/download/hexo-1.0.0/hexo-1.0.0.tgz
+    version: 1.0.0
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2021-11-18T13:48:39.646659752Z"
     description: A Helm chart for Hexo
     digest: 3e7001d23dcfeb905da5dfe0ab27e3ed805764b80ae4e916fa33b6bb3ebbec8b
@@ -52,4 +62,4 @@ entries:
     urls:
     - https://github.com/cjw7360/helm-charts/releases/download/hexo-0.1.0/hexo-0.1.0.tgz
     version: 0.1.0
-generated: "2021-11-18T13:48:39.646673852Z"
+generated: "2021-11-18T14:10:27.911900429Z"
