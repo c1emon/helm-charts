@@ -1,17 +1,18 @@
 Deploy {{ include "frps.fullname" . }} success!
 
-First, you shoule add frps bind ports to ingress controler:
+First, frps bind ports are exposed via 'NodePort':
 {{ include "frps.config.bind.tcp.ing" . }}/TCP
 {{- if .Values.frps.bind.udp }}
 {{ include "frps.config.bind.udp.ing" . }}/UDP
 {{- end }}
 
 {{- if .Values.frps.ports }}
-Then you should add the following TCP/UDP ports to ingress controller with service {{ include "frps.fullname" . }}:
+Then following TCP/UDP ports are also exposed via 'NodePort':
 {{- range .Values.frps.ports }}
 {{ .svcPort }} / {{ default "TCP" .protocol }}
 {{- end }}
 {{- end }}
+You can get NodePort number by: `kubectl get svc`
 
 {{- if .Values.frps.dashboard }}
 Dashboard: {{ include "frps.config.dashboard.host" . }}
