@@ -3,6 +3,16 @@ entries:
   frps:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2021-11-18T08:06:50.007366494Z"
+    description: A Helm chart of frps
+    digest: 5e93b389abc73b535e8aab1d393c1090c3d1c52d221c9d686e9637d2b6a96511
+    name: frps
+    type: application
+    urls:
+    - https://github.com/cjw7360/helm-charts/releases/download/frps-0.1.2/frps-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2021-11-17T11:23:49.288459971Z"
     description: A Helm chart of frps
     digest: 1e7f6a9c928dbcd8145ce24e697d9f750fab04b439e5f349195f1b00d874412d
@@ -21,4 +31,4 @@ entries:
     urls:
     - https://github.com/cjw7360/helm-charts/releases/download/frps-0.1.0/frps-0.1.0.tgz
     version: 0.1.0
-generated: "2021-11-17T11:23:49.288472471Z"
+generated: "2021-11-18T08:06:50.007378994Z"
