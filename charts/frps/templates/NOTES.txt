@@ -1,26 +1,38 @@
-Deploy {{ include "frps.fullname" . }} success!
-
-First, frps bind ports are exposed via 'NodePort':
+Frps bind ports are exposed via 'NodePort':
 {{ include "frps.config.bind.tcp.ing" . }}/TCP
 {{- if .Values.frps.bind.udp }}
 {{ include "frps.config.bind.udp.ing" . }}/UDP
 {{- end }}
 
-{{- if .Values.frps.ports }}
+{{ if .Values.frps.ports }}
 Then following TCP/UDP ports are also exposed via 'NodePort':
 {{- range .Values.frps.ports }}
 {{ .svcPort }} / {{ default "TCP" .protocol }}
 {{- end }}
 {{- end }}
-You can get NodePort number by: `kubectl get svc`
+You can get exposed `NodePort` by:
+`kubectl get svc {{ include "frps.fullname" . }}-tcp-udp -n {{ .Release.Namespace }} -o=jsonpath='{range .spec.ports[*]}{.nodePort}:{.port}/{.protocol}{"\n"}{end}'`
 
-{{- if .Values.frps.dashboard }}
-Dashboard: {{ include "frps.config.dashboard.host" . }}
+{{ if .Values.frps.dashboard.enabled }}
+{{- if  .Values.frps.dashboard.ingress.enabled }}
+Dashboard: http{{ if .Values.frps.dashboard.ingress.tls }}s{{ end }}://{{ include "frps.config.dashboard.host" . }}
+{{- else }}
+Dashboard isn't access public. Access dashboard via `localhost:8081` by:
+`kubectl port-forward -n {{ .Release.Namespace }} service/{{ include "frps.fullname" . }}-http 8081:8081`
+{{- end }}
+{{- else }}
+Dashboard has disabled.
 {{- end }}
 
-{{- if .Values.frps.httpEndpoint.hosts }}
-Http(s):
+{{ if .Values.frps.httpEndpoint.hosts }}
+Exposed web:
 {{- range .Values.frps.httpEndpoint.hosts }}
-{{ .host }}
+http{{ if .tls }}s{{ end }}:{{ .host }}
+{{- end -}}
 {{- end }}
+
+{{ if .Values.healthz.enabled -}}
+Health check has enabled. 
+By now, frps-0.38.0 hide `/healthz` endpoint behind dashboard.
+So, if you want to this work correctly, there should be no basic auth for dashboard.
 {{- end }}

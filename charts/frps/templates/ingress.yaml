@@ -1,3 +1,12 @@
+{{- if .Values.frps.dashboard.ingress.enabled  }}
+{{- $_ := set .Values.ingress "enabled" true }}
+{{- else }}
+{{- range .Values.frps.httpEndpoint.hosts }}
+{{- if .tls }}
+{{- $_ := set .Values.ingress "enabled" true }}
+{{- end }}
+{{- end }}
+{{- end }}
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "frps.fullname" . -}}
 {{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
@@ -31,7 +40,7 @@ spec:
     {{- end }}
   {{- end }}
   rules:
-  {{- if .Values.frps.dashboard }}
+  {{- if and .Values.frps.dashboard.enabled .Values.frps.dashboard.ingress.enabled }}
     - host: {{ (include "frps.config.dashboard.host" .) | quote }}
       http:
         paths:
