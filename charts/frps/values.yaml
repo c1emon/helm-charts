@@ -41,7 +41,6 @@ frps:
       tls: false
       host: "dashboard.frp.example.icu"
     port: 7500
-    
   bind: 
     tcp: 
       pod: 7000

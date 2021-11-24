@@ -3,7 +3,7 @@
 {{- else }}
 {{- range .Values.frps.httpEndpoint.hosts }}
 {{- if .tls }}
-{{- $_ := set .Values.ingress "enabled" true }}
+{{- $_ := set $.Values.ingress "enabled" true }}
 {{- end }}
 {{- end }}
 {{- end }}
