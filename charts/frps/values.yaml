@@ -34,10 +34,14 @@ frps:
     # - name: extPort-3
     #   podPort: 18089
     #   svcPort: 28089
-  dashboard: 
-    # tls: true
+  dashboard:
+    enabled: false
+    ingress:
+      enabled: false
+      tls: false
+      host: "dashboard.frp.example.icu"
     port: 7500
-    host: "dashboard.frp.example.icu"
+    
   bind: 
     tcp: 
       pod: 7000
@@ -79,7 +83,6 @@ service:
   type: ClusterIP
 
 ingress:
-  enabled: true
   className: "nginx"
   autoHttpsIssuer: "letsencrypt-prod"
   annotations: {}
@@ -95,6 +98,11 @@ resources: {}
   # requests:
   #   cpu: 50m
   #   memory: 64Mi
+
+healthz: 
+  enabled: false
+  livenessProbeOverride: {}
+  readinessProbeOverride: {}
 
 nodeSelector: {}
 

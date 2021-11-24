@@ -27,6 +27,12 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if .Values.healthz.enabled }}
+          livenessProbe:
+            {{- (include "frps.pod.livenessProbe" .) | indent 12 }}
+          readinessProbe:
+            {{- (include "frps.pod.readinessProbe" .) | indent 12 }}
+          {{- end }}
           ports:
             - name: bind-tcp
               containerPort: {{ include "frps.config.bind.tcp.pod" . }}
@@ -41,7 +47,7 @@ spec:
               containerPort: {{ include "frps.config.http.endpoint.port" . }}
               protocol: TCP
             {{- end }}
-            {{- if .Values.frps.dashboard }}
+            {{- if or .Values.frps.dashboard.enabled .Values.healthz.enabled }}
             - name: dashboard
               containerPort: {{ include "frps.config.dashboard.port" . }}
               protocol: TCP

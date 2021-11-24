@@ -29,7 +29,7 @@ Frps config bind
 {{- end }}
 
 {{- define "frps.config.dashboard.host" -}}
-{{- default "dashboard.frp.example.com" .Values.frps.dashboard.host -}}
+{{- default "dashboard.frp.example.com" .Values.frps.dashboard.ingress.host -}}
 {{- end }}
 
 {{- define "frps.config.name" -}}
@@ -78,7 +78,7 @@ Frps config bind
 {{- end }}
 
 {{- define "frps.config.ingress.tls" }}
-{{- if .Values.frps.dashboard.tls }}
+{{- if and .Values.frps.dashboard.enabled .Values.frps.dashboard.ingress.enabled .Values.frps.dashboard.ingress.tls }}
 {{- $dashBoardHost := ( include "frps.config.dashboard.host" . ) }}
 - hosts:
     - {{ $dashBoardHost | quote }}
@@ -90,6 +90,38 @@ Frps config bind
     - {{ .host | quote }}
   secretName: {{ .host | replace "." "-" | printf "%s-tls-cert" | quote }}
 {{- end }}
+{{- end }}
+{{- end }}
+
+{{- define "frps.pod.livenessProbe" }}
+{{- if .Values.healthz.livenessProbeOverride }}
+{{ toYaml .Values.healthz.livenessProbeOverride }}
+{{- else }}
+httpGet:
+  path: /healthz
+  port: {{ include "frps.config.dashboard.port" . }}
+  scheme: HTTP
+initialDelaySeconds: 10
+timeoutSeconds: 5
+periodSeconds: 60
+successThreshold: 1
+failureThreshold: 5
+{{- end }}
+{{- end }}
+
+{{- define "frps.pod.readinessProbe" }}
+{{- if .Values.healthz.readinessProbeOverride }}
+{{ toYaml .Values.healthz.readinessProbeOverride }}
+{{- else }}
+httpGet:
+  path: /healthz
+  port: {{ include "frps.config.dashboard.port" . }}
+  scheme: HTTP
+initialDelaySeconds: 10
+timeoutSeconds: 5
+periodSeconds: 60
+successThreshold: 1
+failureThreshold: 5
 {{- end }}
 {{- end }}
 
