@@ -27,7 +27,7 @@ Dashboard has disabled.
 {{ if .Values.frps.httpEndpoint.hosts }}
 Exposed web:
 {{- range .Values.frps.httpEndpoint.hosts }}
-http{{ if .tls }}s{{ end }}:{{ .host }}
+http{{ if .tls }}s{{ end }}://{{ .host }}
 {{- end -}}
 {{- end }}
 
