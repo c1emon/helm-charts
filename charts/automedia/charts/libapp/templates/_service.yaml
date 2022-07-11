@@ -1,0 +1,17 @@
+{{- define "libapp.svc" -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "libapp.fullname" . }}
+  labels:
+    {{- include "libapp.labels" . | nindent 4 }}
+spec:
+  type: lb
+  ports:
+    - port: 1008
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "libapp.selectorLabels" . | nindent 4 }}
+{{- end -}}

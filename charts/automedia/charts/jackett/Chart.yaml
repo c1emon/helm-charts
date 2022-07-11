@@ -24,6 +24,6 @@ version: 0.1.0
 appVersion: "1.16.0"
 
 dependencies:
-- name: _libapp
-  version: 0.1.0
-  repository: file://./_libapp
+  - name: libapp
+    version: 0.1.0
+    repository: file://../libapp
