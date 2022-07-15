@@ -12,4 +12,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "common.selectorLabels" . | nindent 4 }}
+    {{- include "common.deploy.selectorLabels" . | nindent 4 }}
