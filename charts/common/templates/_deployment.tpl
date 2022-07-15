@@ -1,9 +1,10 @@
-apiVersion: apps/v1
+{{- define "common.deploy.full" -}}
+apiVersion: {{ include "common.deploy.apiVer" . }}
 kind: Deployment
 metadata:
   name: {{ include "common.fullname" . }}
   labels:
-    {{- include "common.labels" . | nindent 4 }}
+    {{- include "common.deploy.labels" . | indent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
@@ -59,3 +60,4 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+{{- end -}}
