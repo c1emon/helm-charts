@@ -5,3 +5,8 @@ labels:
   deploy: {}
   service: {}
   ingress: {}
+
+# selector's label setting
+selectorLabels:
+  default: true
+  custom: {}
