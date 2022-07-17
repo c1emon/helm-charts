@@ -22,19 +22,18 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- include "common.selectorLabels.costum" . }}
 {{- end }}
 
-
 {{/*
 Default labels
 */}}
 {{- define "common.labels.default" -}}
 {{- if .Values.labels.default }}
-helm.sh/chart: {{ include "common.chart" . }}
+helm.sh/chart: {{ include "common.chart" . -}}
+{{ include "common.deploy.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
-{{ include "common.deploy.selectorLabels" . }}
-{{- end -}}
+{{- end }}
 {{- end }}
 
 {{/*
@@ -46,13 +45,17 @@ Global labels
 {{- end }}
 {{- end }}
 
+{{- define "common.labels.deploy" -}}
+{{- if not (empty .Values.labels.deploy) }}
+{{ toYaml .Values.labels.deploy }}
+{{- end }}
+{{- end }}
+
 {{/*
 Deploy labels
 */}}
 {{- define "common.deploy.labels" -}}
-{{- include "common.labels.default" . }}
-{{- include "common.labels.global" . }}
-{{- if .Values.labels.deploy }}
-{{ toYaml .Values.labels.deploy }}
-{{- end }}
+{{- include "test.labels.default" . }}
+{{- include "test.labels.global" . }}
+{{- include "test.labels.deploy" . }}
 {{- end }}
