@@ -10,3 +10,14 @@ labels:
 selectorLabels:
   default: true
   custom: {}
+
+annotations:
+  global: {}
+  deploy: {}
+  service: {}
+  ingress: {}
+
+image:
+  pullSecrets: ""
+  repository: ""
+  tag: "latest"
