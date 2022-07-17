@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: {{ include "common.fullname" . }}
   labels:
-    {{- include "common.deploy.labels" . | indent 4 }}
+    {{- include "common.deploy.labels" . | trim | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
