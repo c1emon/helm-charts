@@ -11,7 +11,7 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-      {{- include "common.deploy.selectorLabels" . | nindent 6 }}
+      {{- include "common.deploy.selectorLabels" . | trim | nindent 6 }}
   template:
     metadata:
       {{- if or (not (empty .Values.annotations.global)) (not (empty .Values.annotations.deploy)) }}
@@ -19,7 +19,7 @@ spec:
         {{- include "common.deploy.annotations" . | trim | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "common.deploy.selectorLabels" . | nindent 8 }}
+        {{- include "common.deploy.selectorLabels" . | trim | nindent 8 }}
     spec:
       {{- if not (empty .Values.image.PullSecrets) }}
       imagePullSecrets:

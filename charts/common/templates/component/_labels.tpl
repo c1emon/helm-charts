@@ -1,21 +1,25 @@
 {{/*
 Selector labels
 */}}
-{{- define "common.deploy.selectorLabels" -}}
-{{- if .Values.selectorLabels.default -}}
+{{- define "common.selectorLabels.default" -}}
+{{- if .Values.selectorLabels.default }}
 app.kubernetes.io/name: {{ include "common.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
-{{- if .Values.selectorLabels.custom }}
+{{- end }}
+{{- end }}
+
+{{- define "common.selectorLabels.custom" -}}
+{{- if not (empty .Values.selectorLabels.custom) }}
 {{ toYaml .Values.selectorLabels.custom }}
 {{- end }}
-{{- else }}
-{{- if empty .Values.selectorLabels.custom }}
+{{- end }}
+
+{{- define "common.deploy.selectorLabels" -}}
+{{- if and (not (empty .Values.selectorLabels.custom)) (.Values.selectorLabels.default) -}}
 {{- fail "ether selectorLabels.default or selectorLabels.custom must be set" }}
 {{- end }}
-{{- if .Values.selectorLabels.custom }}
-{{- toYaml .Values.selectorLabels.custom }}
-{{- end }}
-{{- end }}
+{{- include "common.selectorLabels.default" . }}
+{{- include "common.selectorLabels.costum" . }}
 {{- end }}
 
 
