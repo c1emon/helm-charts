@@ -1,5 +1,5 @@
 {{/*
-Global labels
+Global annotations
 */}}
 {{- define "common.annotations.global" -}}
 {{- if not (empty .Values.annotations.global) }}
@@ -7,6 +7,9 @@ Global labels
 {{ end }}
 {{- end }}
 
+{{/*
+Deploy annotations
+*/}}
 {{- define "common.annotations.deploy" -}}
 {{- if not (empty .Values.annotations.deploy) }}
 {{ toYaml .Values.annotations.deploy }}
@@ -14,7 +17,7 @@ Global labels
 {{- end -}}
 
 {{/*
-Deploy labels
+Deploy annotations
 */}}
 {{- define "common.deploy.annotations" -}}
 {{- include "common.annotations.global" . }}

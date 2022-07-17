@@ -19,7 +19,7 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- fail "ether selectorLabels.default or selectorLabels.custom must be set" }}
 {{- end }}
 {{- include "common.selectorLabels.default" . }}
-{{- include "common.selectorLabels.costum" . }}
+{{- include "common.selectorLabels.custom" . }}
 {{- end }}
 
 {{/*
