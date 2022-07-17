@@ -14,9 +14,9 @@ spec:
       {{- include "common.deploy.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- if or .Values.annotations.global .Values.annotations.deploy }}
+      {{- if or (not (empty .Values.annotations.global)) (not (empty .Values.annotations.deploy)) }}
       annotations:
-        {{- include "common.deploy.annotations" . | nindent 8 }}
+        {{- include "common.deploy.annotations" . | trim | nindent 8 }}
       {{- end }}
       labels:
         {{- include "common.deploy.selectorLabels" . | nindent 8 }}
