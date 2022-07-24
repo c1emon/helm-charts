@@ -31,3 +31,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{ toYaml . }}
 {{- end }}
 {{- end }}
+
+{{- define "common.service.labels" -}}
+{{ include "common.labels.default" . }}
+{{- with (merge .Values.labels.global .Values.labels.service) }}
+{{ toYaml . }}
+{{- end }}
+{{- end }}
+
+{{- define "common.ingress.labels" -}}
+{{ include "common.labels.default" . }}
+{{- with (merge .Values.labels.global .Values.labels.ingress) }}
+{{ toYaml . }}
+{{- end }}
+{{- end }}

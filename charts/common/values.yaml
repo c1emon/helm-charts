@@ -16,5 +16,5 @@ selectorLabels:
 annotations:
   global: {}
   deploy: {}
-  service: {}
+  serviceAccount: {}
   ingress: {}
