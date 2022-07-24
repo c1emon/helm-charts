@@ -58,3 +58,25 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+override:
+  name: ""
+  fullname: ""
+
+# label setting
+labels:
+  global: {}
+  deploy: {}
+  service: {}
+  serviceAccount: {}
+  ingress: {}
+
+# selector's label setting
+selectorLabels:
+  custom: {}
+
+annotations:
+  global: {}
+  deploy: {}
+  serviceAccount: {}
+  ingress: {}
