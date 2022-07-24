@@ -1,14 +1,14 @@
-apiVersion: apps/v1
+apiVersion: {{ include "common.deploy.apiVer" . }}
 kind: Deployment
 metadata:
-  name: {{ include "hexo.fullname" . }}
+  name: {{ include "common.fullname" . }}
   labels:
-    {{- include "hexo.labels" . | nindent 4 }}
+    {{- include "common.deploy.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount | default 1 }}
   selector:
     matchLabels:
-      {{- include "hexo.selectorLabels" . | nindent 6 }}
+      {{- include "common.deploy.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -16,7 +16,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "hexo.selectorLabels" . | nindent 8 }}
+        {{- include "common.deploy.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
