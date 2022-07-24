@@ -1,2 +1,2 @@
-Use image: {{ (include "image" .Values.image) | quote }}
+Use image: {{ (include "common.image" .Values.image) | quote }}
 Access blog at: http{{ if .Values.ingress.certManagerIssuer }}s{{ end }}://{{ .Values.ingress.host }}
