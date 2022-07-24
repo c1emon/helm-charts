@@ -5,15 +5,14 @@
 replicaCount: 1
 
 image:
+  registry: "clemon.icu"
   repository: nginx
-  pullPolicy: IfNotPresent
-  dig: ""
+  dig: "123"
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
+  pullPolicy: IfNotPresent
 
 imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
 
 serviceAccount:
   # Specifies whether a service account should be created

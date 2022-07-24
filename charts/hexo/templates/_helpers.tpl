@@ -9,10 +9,3 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
-{{- define "image" -}}
-{{- if .Values.image.dig }}
-{{- printf "%s@%s" .Values.image.repository .Values.image.dig }}
-{{- else -}}
-{{- printf "%s:%s" .Values.image.repository (.Values.image.tag | default "latest") }}
-{{- end }}
-{{- end }}
