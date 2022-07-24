@@ -1,0 +1,20 @@
+override:
+  name: ""
+  fullname: ""
+
+# label setting
+labels:
+  global: {}
+  deploy: {}
+  service: {}
+  ingress: {}
+
+# selector's label setting
+selectorLabels:
+  custom: {}
+
+annotations:
+  global: {}
+  deploy: {}
+  serviceAccount: {}
+  ingress: {}
