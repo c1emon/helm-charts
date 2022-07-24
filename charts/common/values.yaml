@@ -7,6 +7,7 @@ labels:
   global: {}
   deploy: {}
   service: {}
+  serviceAccount: {}
   ingress: {}
 
 # selector's label setting
