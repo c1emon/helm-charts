@@ -32,6 +32,7 @@ Ingress annotations
 custom: .Values.common.annotations.ingress
 */}}
 {{- define "common.ingress.annotations" -}}
+{{- include "common.ingress.helper.className" . -}}
 {{- $global := include "common.utils.existsElse" (dict "map" .Values "key" "common.annotations.global" "default" (dict)) }}
 {{- $ingress := include "common.utils.existsElse" (dict "map" .Values "key" "common.annotations.ingress" "default" (dict)) }}
 {{- with (merge (fromYaml $global) (fromYaml $ingress)) }}
