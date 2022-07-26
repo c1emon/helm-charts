@@ -2,7 +2,8 @@
 Expand the name of the chart.
 */}}
 {{- define "common.name" -}}
-{{- default .Chart.Name .Values.override.name | trunc 63 | trimSuffix "-" }}
+{{- $name := include "common.utils.existsElse" (dict "map" .Values "key" "common.name" "default" .Chart.Name) }}
+{{- $name | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
@@ -11,16 +12,15 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 If release name contains chart name it will be used as a full name.
 */}}
 {{- define "common.fullname" -}}
-{{- if .Values.override.fullname }}
-{{- .Values.override.fullname | trunc 63 | trimSuffix "-" }}
-{{- else }}
-{{- $name := default .Chart.Name .Values.override.name }}
+{{- $name := default .Chart.Name (include "common.name" .) }}
+{{- $default := "" }}
 {{- if contains $name .Release.Name }}
-{{- .Release.Name | trunc 63 | trimSuffix "-" }}
+{{- $default = .Release.Name }}
 {{- else }}
-{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
+{{- $default = (printf "%s-%s" .Release.Name $name) }}
 {{- end }}
-{{- end }}
+{{- $fullname := include "common.utils.existsElse" (dict "map" .Values "key" "common.fullname" "default" $default) }}
+{{- $fullname | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
