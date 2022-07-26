@@ -7,9 +7,10 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{- define "common.deploy.selectorLabels" -}}
-{{ include "common.selectorLabels.default" . }}
-{{- if not (empty .Values.selectorLabels.custom) }}
-{{ toYaml .Values.selectorLabels.custom }}
+{{- include "common.selectorLabels.default" . }}
+{{- $custom := include "common.utils.existsElse" (dict "map" .Values "key" "common.selectorLabels.custom" "default" (dict)) }}
+{{- with (fromYaml $custom) }}
+{{ toYaml . }}
 {{- end }}
 {{- end }}
 
@@ -27,28 +28,36 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 
 {{- define "common.deploy.labels" -}}
 {{ include "common.labels.default" . }}
-{{- with (merge .Values.labels.global .Values.labels.deploy) }}
+{{- $global := include "common.utils.existsElse" (dict "map" .Values "key" "common.labels.global" "default" (dict)) }}
+{{- $deploy := include "common.utils.existsElse" (dict "map" .Values "key" "common.labels.deploy" "default" (dict)) }}
+{{- with (merge (fromYaml $global) (fromYaml $deploy)) }}
 {{ toYaml . }}
 {{- end }}
 {{- end }}
 
 {{- define "common.service.labels" -}}
 {{ include "common.labels.default" . }}
-{{- with (merge .Values.labels.global .Values.labels.service) }}
+{{- $global := include "common.utils.existsElse" (dict "map" .Values "key" "common.labels.global" "default" (dict)) }}
+{{- $service := include "common.utils.existsElse" (dict "map" .Values "key" "common.labels.service" "default" (dict)) }}
+{{- with (merge (fromYaml $global) (fromYaml $service)) }}
 {{ toYaml . }}
 {{- end }}
 {{- end }}
 
 {{- define "common.serviceAccount.labels" -}}
 {{ include "common.labels.default" . }}
-{{- with (merge .Values.labels.global .Values.labels.serviceAccount) }}
+{{- $global := include "common.utils.existsElse" (dict "map" .Values "key" "common.labels.global" "default" (dict)) }}
+{{- $serviceAccount := include "common.utils.existsElse" (dict "map" .Values "key" "common.labels.serviceAccount" "default" (dict)) }}
+{{- with (merge (fromYaml $global) (fromYaml $serviceAccount)) }}
 {{ toYaml . }}
 {{- end }}
 {{- end }}
 
 {{- define "common.ingress.labels" -}}
 {{ include "common.labels.default" . }}
-{{- with (merge .Values.labels.global .Values.labels.ingress) }}
+{{- $global := include "common.utils.existsElse" (dict "map" .Values "key" "common.labels.global" "default" (dict)) }}
+{{- $ingress := include "common.utils.existsElse" (dict "map" .Values "key" "common.labels.ingress" "default" (dict)) }}
+{{- with (merge (fromYaml $global) (fromYaml $ingress)) }}
 {{ toYaml . }}
 {{- end }}
 {{- end }}
