@@ -17,5 +17,6 @@ common:
   annotations:
     global: {}
     deploy: {}
+    pod: {}
     serviceAccount: {}
     ingress: {}
