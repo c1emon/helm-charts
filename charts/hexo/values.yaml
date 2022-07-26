@@ -37,7 +37,6 @@ service:
 ingress:
   enabled: true
   className: "nginx"
-  certManagerIssuer: ""
   host: "blog.example.com"
 
 resources: {}
@@ -58,6 +57,7 @@ tolerations: []
 
 affinity: {}
 
-override:
-  name: ""
-  fullname: ""
+common:
+  annotations:
+    ingress: 
+      "cert-manager.io/cluster-issuer": "cd"
