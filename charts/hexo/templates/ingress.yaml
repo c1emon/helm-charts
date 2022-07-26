@@ -5,8 +5,7 @@ metadata:
   name: {{ include "common.fullname" . }}
   labels:
     {{- include "common.ingress.labels" . | nindent 4 }}
-  annotations:
-    {{- include "common.ingress.annotations" . | nindent 4 }}
+  {{- include "common.ingress.annotations" . | indent 2 }}
 spec:
   {{- include "common.ingress.className" . | indent 2 }}
   {{- if .Values.ingress.certManagerIssuer }}
