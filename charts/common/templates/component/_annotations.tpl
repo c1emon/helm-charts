@@ -27,6 +27,19 @@ annotations:
 {{- end }}
 
 {{/*
+Pod annotations
+custom: .Values.common.annotations.pod
+*/}}
+{{- define "common.pod.annotations" -}}
+{{- $global := include "common.utils.existsElse" (dict "map" .Values "key" "common.annotations.global" "default" (dict)) }}
+{{- $pod := include "common.utils.existsElse" (dict "map" .Values "key" "common.annotations.pod" "default" (dict)) }}
+{{- with (merge (fromYaml $global) (fromYaml $pod)) }}
+annotations:
+{{ toYaml . | indent 2 }}
+{{- end }}
+{{- end }}
+
+{{/*
 ServiceAccount annotations
 custom: .Values.common.annotations.serviceAccount
 */}}
