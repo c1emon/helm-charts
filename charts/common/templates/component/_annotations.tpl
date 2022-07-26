@@ -1,5 +1,11 @@
 {{/*
+Annotations
+add global custom annotations to .Values.common.annotations.global
+*/}}
+
+{{/*
 Deploy annotations
+custom: .Values.common.annotations.deploy
 */}}
 {{- define "common.deploy.annotations" -}}
 {{- $global := include "common.utils.existsElse" (dict "map" .Values "key" "common.annotations.global" "default" (dict)) }}
@@ -9,6 +15,10 @@ Deploy annotations
 {{- end }}
 {{- end }}
 
+{{/*
+ServiceAccount annotations
+custom: .Values.common.annotations.serviceAccount
+*/}}
 {{- define "common.serviceAccount.annotations" -}}
 {{- $global := include "common.utils.existsElse" (dict "map" .Values "key" "common.annotations.global" "default" (dict)) }}
 {{- $serviceAccount := include "common.utils.existsElse" (dict "map" .Values "key" "common.annotations.serviceAccount" "default" (dict)) }}
@@ -17,6 +27,10 @@ Deploy annotations
 {{- end }}
 {{- end }}
 
+{{/*
+Ingress annotations
+custom: .Values.common.annotations.ingress
+*/}}
 {{- define "common.ingress.annotations" -}}
 {{- $global := include "common.utils.existsElse" (dict "map" .Values "key" "common.annotations.global" "default" (dict)) }}
 {{- $ingress := include "common.utils.existsElse" (dict "map" .Values "key" "common.annotations.ingress" "default" (dict)) }}
