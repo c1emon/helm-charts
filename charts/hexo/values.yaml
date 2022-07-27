@@ -5,9 +5,9 @@
 replicaCount: 1
 
 image:
-  registry: "clemon.icu"
-  repository: nginx
-  dig: "123"
+  registry: ""
+  repository: "nginx"
+  dig: ""
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
   pullPolicy: IfNotPresent
@@ -52,8 +52,3 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
-common:
-  annotations:
-    ingress: 
-      "cert-manager.io/cluster-issuer": "cd"
