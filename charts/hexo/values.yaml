@@ -33,6 +33,7 @@ service:
 ingress:
   enabled: true
   className: "nginx"
+  tls: false
   host: "blog.example.com"
 
 resources: {}

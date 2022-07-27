@@ -8,7 +8,7 @@ metadata:
   {{- include "common.ingress.annotations" . | indent 2 }}
 spec:
   {{- include "common.ingress.className" . | indent 2 }}
-  {{- if .Values.ingress.certManagerIssuer }}
+  {{- if .Values.ingress.tls }}
   tls:
     - hosts:
         - {{ .Values.ingress.host | quote }}
