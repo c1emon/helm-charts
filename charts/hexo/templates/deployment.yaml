@@ -1,22 +1,20 @@
-apiVersion: apps/v1
+apiVersion: {{ include "common.deploy.apiVer" . }}
 kind: Deployment
 metadata:
-  name: {{ include "hexo.fullname" . }}
+  name: {{ include "common.fullname" . }}
   labels:
-    {{- include "hexo.labels" . | nindent 4 }}
+    {{- include "common.deploy.labels" . | nindent 4 }}
+  {{- include "common.deploy.annotations" . | indent 2 }}
 spec:
   replicas: {{ .Values.replicaCount | default 1 }}
   selector:
     matchLabels:
-      {{- include "hexo.selectorLabels" . | nindent 6 }}
+      {{- include "common.deploy.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       labels:
-        {{- include "hexo.selectorLabels" . | nindent 8 }}
+        {{- include "common.deploy.selectorLabels" . | nindent 8 }}
+      {{- include "common.pod.annotations" . | indent 2 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -25,7 +23,7 @@ spec:
       serviceAccountName: {{ include "hexo.serviceAccountName" . }}
       containers:
         - name: {{ .Chart.Name }}
-          image: {{ (include "image" .) | quote }}
+          image: {{ (include "common.image" .Values.image) | quote }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
@@ -39,8 +37,10 @@ spec:
           readinessProbe:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          {{- with .Values.resources }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
