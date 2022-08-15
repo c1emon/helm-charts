@@ -51,12 +51,12 @@ resources: {}
   #   memory: 128Mi
 
 persistence:
-    enabled: false
-    storageClassName: openebs-hostpath
-    accessModes:
-      - ReadWriteOnce
-    size: 2Gi
-    # selectorLabels: {}
+  enabled: false
+  storageClassName: openebs-hostpath
+  accessModes:
+    - ReadWriteOnce
+  size: 2Gi
+  # selectorLabels: {}
 
 nodeSelector: {}
 
