@@ -1,1 +1,1 @@
-Access via hostname {{ include "common.fullname" . }}.{{ include .Release.Namespace }}.svc.cluster.local inside cluster.
+Access via hostname {{ include "common.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local inside cluster.
