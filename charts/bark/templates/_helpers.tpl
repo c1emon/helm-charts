@@ -1,7 +1,7 @@
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "hexo.serviceAccountName" -}}
+{{- define "bark.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
 {{- default (include "common.fullname" .) .Values.serviceAccount.name }}
 {{- else }}

@@ -1,12 +1,10 @@
-# Default values for hexo.
+# Default values for bark.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 1
-
 image:
-  registry: ""
-  repository: "nginx"
+  registry: "finab"
+  repository: "bark-server"
   dig: ""
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -17,24 +15,28 @@ imagePullSecrets: []
 serviceAccount:
   # Specifies whether a service account should be created
   create: true
-  # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
-  name: ""
 
-containerPort: 80
+podAnnotations: {}
 
-livenessProbe: {}
+podSecurityContext: {}
+  # fsGroup: 2000
 
-readinessProbe: {}
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
 
 service:
   type: ClusterIP
 
 ingress:
-  enabled: true
+  enabled: false
   className: "nginx"
   tls: false
-  host: "blog.example.com"
+  host: "bark.example.com"
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -43,10 +45,18 @@ resources: {}
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   # limits:
   #   cpu: 100m
-  #   memory: 50Mi
+  #   memory: 128Mi
   # requests:
-  #   cpu: 10m
-  #   memory: 10Mi
+  #   cpu: 100m
+  #   memory: 128Mi
+
+persistence:
+    enabled: false
+    storageClassName: openebs-hostpath
+    accessModes:
+      - ReadWriteOnce
+    size: 2Gi
+    # selectorLabels: {}
 
 nodeSelector: {}
 

@@ -1,15 +1,32 @@
 apiVersion: {{ include "common.deploy.apiVer" . }}
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "common.fullname" . }}
   labels:
     {{- include "common.deploy.labels" . | nindent 4 }}
   {{- include "common.deploy.annotations" . | indent 2 }}
 spec:
-  replicas: {{ .Values.replicaCount | default 1 }}
+  replicas: 1
   selector:
     matchLabels:
       {{- include "common.deploy.selectorLabels" . | nindent 6 }}
+  serviceName: {{ include "common.fullname" . }}
+  {{- if .Values.persistence.enabled }}
+  volumeClaimTemplates:
+  - metadata:
+      name: bark-data
+    spec:
+      accessModes: {{ .Values.persistence.accessModes }}
+      storageClassName: {{ .Values.persistence.storageClassName | quote }}
+      resources:
+        requests:
+          storage: {{ .Values.persistence.size | quote }}
+      {{- with .Values.persistence.selectorLabels }}
+      selector:
+        matchLabels:
+{{ toYaml . | indent 10 }}
+      {{- end }}
+  {{- end }}
   template:
     metadata:
       labels:
@@ -20,27 +37,35 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "hexo.serviceAccountName" . }}
+      serviceAccountName: {{ include "bark.serviceAccountName" . }}
       containers:
         - name: {{ .Chart.Name }}
           image: {{ (include "common.image" .Values.image) | quote }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{ .Values.containerPort | default 80 }}
+              containerPort: {{ .Values.containerPort | default 8080 }}
               protocol: TCP
-          {{- with .Values.livenessProbe }}
+          volumeMounts:
+          - name: bark-data
+            mountPath: /data
           livenessProbe:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-          {{- with .Values.readinessProbe }}
+            httpGet:
+              path: /ping
+              port: 8080
           readinessProbe:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
+            httpGet:
+              path: /healthz
+              port: 8080
           {{- with .Values.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+      {{- if not .Values.persistence.enabled }}
+      volumes:
+        - name: bark-data
+          emptyDir: {}
+      {{- end -}}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
