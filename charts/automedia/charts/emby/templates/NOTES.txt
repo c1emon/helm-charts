@@ -1,0 +1,5 @@
+{{- if .Values.enabled -}}
+Emby server enabled
+{{- else }}
+Emby server disabled
+{{- end }}
