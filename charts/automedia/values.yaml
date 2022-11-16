@@ -1,3 +1,5 @@
+# TODO: 将各个部署改为无状态的（deployment）
+
 emby:
   enabled: true
 
@@ -27,3 +29,6 @@ sonarr:
 
 subfinder:
   enabled: true
+
+global:
+  storage: xxx
