@@ -30,7 +30,7 @@ service:
   port: 9696
 
 ingress:
-  enabled: true
+  enabled: false
   className: "nginx"
   tls: false
   host: "prowlarr.example.com"

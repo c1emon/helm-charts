@@ -34,7 +34,7 @@ service:
   port: 6789
 
 ingress:
-  enabled: true
+  enabled: false
   className: "nginx"
   tls: false
   host: "nzbget.example.com"

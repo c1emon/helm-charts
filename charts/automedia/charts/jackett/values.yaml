@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-enabled: true
+enabled: false
 
 image:
   registry: "lscr.io/linuxserver"
@@ -31,7 +31,7 @@ service:
   port: 9117
 
 ingress:
-  enabled: true
+  enabled: false
   className: "nginx"
   tls: false
   host: "jackett.example.com"

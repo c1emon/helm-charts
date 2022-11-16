@@ -1,7 +1,7 @@
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "jackett.serviceAccountName" -}}
+{{- define "chinesesubfinder.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
 {{- default (include "common.fullname" .) .Values.serviceAccount.name }}
 {{- else }}

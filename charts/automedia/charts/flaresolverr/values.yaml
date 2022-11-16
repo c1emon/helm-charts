@@ -31,7 +31,7 @@ service:
   port: 8191
 
 ingress:
-  enabled: true
+  enabled: false
   className: "nginx"
   tls: false
   host: "flaresolverr.example.com"

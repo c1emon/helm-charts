@@ -32,7 +32,7 @@ service:
   port: 9117
 
 ingress:
-  enabled: true
+  enabled: false
   className: "nginx"
   tls: false
   host: "subfinder.example.com"

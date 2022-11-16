@@ -31,7 +31,7 @@ service:
   port: 3579
 
 ingress:
-  enabled: true
+  enabled: false
   className: "nginx"
   tls: false
   host: "ombi.example.com"

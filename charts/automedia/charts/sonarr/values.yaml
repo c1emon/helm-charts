@@ -31,7 +31,7 @@ service:
   port: 8989
 
 ingress:
-  enabled: true
+  enabled: false
   className: "nginx"
   tls: false
   host: "sonarr.example.com"

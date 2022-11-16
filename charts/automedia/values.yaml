@@ -1,19 +1,19 @@
 emby:
   enabled: true
 
+prowlarr:
+  enabled: true
+
 flaresolver:
   enabled: true
 
 jackett:
-  enabled: true
+  enabled: false
 
 nzget:
   enabled: true
 
 ombi:
-  enabled: true
-
-prowlarr:
   enabled: true
 
 qbittorrent:
