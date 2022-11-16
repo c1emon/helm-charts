@@ -1,52 +1,65 @@
-apiVersion: apps/v1
+{{- if .Values.enabled -}}
+apiVersion: {{ include "common.deploy.apiVer" . }}
 kind: Deployment
 metadata:
-  name: {{ include "sonarr.fullname" . }}
+  name: {{ include "common.fullname" . }}
   labels:
-    {{- include "sonarr.labels" . | nindent 4 }}
+    {{- include "common.deploy.labels" . | nindent 4 }}
+  {{- include "common.deploy.annotations" . | indent 2 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
-  {{- end }}
+  replicas: 1
   selector:
     matchLabels:
-      {{- include "sonarr.selectorLabels" . | nindent 6 }}
+      {{- include "common.deploy.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       labels:
-        {{- include "sonarr.selectorLabels" . | nindent 8 }}
+        {{- include "common.deploy.selectorLabels" . | nindent 8 }}
+      {{- include "common.pod.annotations" . | indent 2 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "sonarr.serviceAccountName" . }}
-      securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - name: http
-              containerPort: 80
-              protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
+      - image: {{ (include "common.image" .Values.image) | quote }}
+        name: {{ .Chart.Name }}
+        ports:
+          - name: http
+            containerPort: {{ .Values.containerPort | default 8989 }}
+            protocol: TCP
+        volumeMounts:
+          - name: media
+            mountPath: /downloads
+          - name: config
+            mountPath: /config
+        livenessProbe:
+          httpGet:
+            path: /system/status
+            port: {{ .Values.containerPort | default 8989 }}
+        readinessProbe:
+          httpGet:
+            path: /system/status
+            port: {{ .Values.containerPort | default 8989 }}
+        env:
+        - name: PUID
+          value: {{ .Values.UID | default 1000 }}
+        - name: PGID
+          value: {{ .Values.GID | default 1000 }}
+        - name: TZ
+          value: {{ .Values.TZ | default "Asia/Shanghai" }}
+        {{- with .Values.resources }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml . | nindent 12 }}
+        {{- end }}
+      volumes:
+      - name: media
+        persistentVolumeClaim:
+          claimName: {{ .Values.persistence.mediaPVCName }}
+      - name: config
+        persistentVolumeClaim:
+          claimName: {{ include "common.fullname" . }}-config-pvc
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -59,3 +72,4 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+{{- end }}
