@@ -56,7 +56,7 @@ spec:
       volumes:
       - name: media
         persistentVolumeClaim:
-          claimName: {{ .Values.persistence.mediaPVCName }}
+          claimName: {{ .Values.global.persistence.mediaPVCName | default .Values.persistence.mediaPVCName }}
       - name: config
         persistentVolumeClaim:
           claimName: {{ include "common.fullname" . }}-config-pvc
