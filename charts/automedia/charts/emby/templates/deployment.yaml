@@ -52,7 +52,7 @@ spec:
           claimName: {{ .Values.persistence.mediaPVCName }}
       - name: config
         persistentVolumeClaim:
-          claimName: emby-config-pvc
+          claimName: {{ include "common.fullname" . }}-config-pvc
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
