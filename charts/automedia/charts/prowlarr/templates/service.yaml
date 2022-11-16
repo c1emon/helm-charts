@@ -1,9 +1,10 @@
+{{- if .Values.enabled -}}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "prowlarr.fullname" . }}
+  name: {{ include "common.fullname" . }}
   labels:
-    {{- include "prowlarr.labels" . | nindent 4 }}
+    {{- include "common.service.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,4 +13,5 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "prowlarr.selectorLabels" . | nindent 4 }}
+    {{- include "common.deploy.selectorLabels" . | nindent 4 }}
+{{- end }}
