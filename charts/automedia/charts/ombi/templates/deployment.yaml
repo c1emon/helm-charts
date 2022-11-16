@@ -21,7 +21,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "jackett.serviceAccountName" . }}
+      serviceAccountName: {{ include "ombi.serviceAccountName" . }}
       containers:
       - image: {{ (include "common.image" .Values.image) | quote }}
         name: {{ .Chart.Name }}
