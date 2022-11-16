@@ -1,4 +1,4 @@
-# TODO: 将各个部署改为无状态的（deployment）
+# TODO: 将各个部署改为无状态的（deployment）， media数据卷功效
 
 emby:
   enabled: true

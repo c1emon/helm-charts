@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-enabled: false
+enabled: true
 
 image:
   registry: "lscr.io/linuxserver"
@@ -19,19 +19,15 @@ serviceAccount:
   create: true
 
 persistence:
-    enabled: false
-    storageClassName: openebs-hostpath
-    accessModes:
-      - ReadWriteOnce
-    size: 2Gi
-    # selectorLabels: {}
+    storageClassName: hostpath
+    mediaPVCName: shared-media-pvc
 
 service:
   type: ClusterIP
   port: 8096
 
 ingress:
-  enabled: false
+  enabled: true
   className: "nginx"
   tls: false
   host: "emby.example.com"
