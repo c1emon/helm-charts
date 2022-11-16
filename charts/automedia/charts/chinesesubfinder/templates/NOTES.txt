@@ -1,0 +1,5 @@
+{{- if .Values.enabled -}}
+ChineseSubFinder server enabled
+{{- else }}
+ChineseSubFinder server disabled
+{{- end }}
