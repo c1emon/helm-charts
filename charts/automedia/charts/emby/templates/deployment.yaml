@@ -41,7 +41,14 @@ spec:
         readinessProbe:
           httpGet:
             path: /emby/system/info/public\?format\=json
-            port: {{ .Values.containerPort | default 8096 }}    
+            port: {{ .Values.containerPort | default 8096 }}
+        env:
+        - name: PUID
+          value: {{ .Values.UID | default 1000 }}
+        - name: PGID
+          value: {{ .Values.GID | default 1000 }}
+        - name: TZ
+          value: {{ .Values.TZ | default "Asia/Shanghai" }}
         {{- with .Values.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
