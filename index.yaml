@@ -3,6 +3,20 @@ entries:
   bark:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2022-11-17T16:05:00.628315471Z"
+    dependencies:
+    - name: common
+      repository: https://helm-charts.clemon.icu
+      version: 0.2.4
+    description: A Helm chart for Bark
+    digest: 234ed00d4655b326f5bc100a4ec97295d4821a857df5ce51900f408745ceb982
+    name: bark
+    type: application
+    urls:
+    - https://github.com/c1emon/helm-charts/releases/download/bark-0.1.1/bark-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2022-08-15T15:08:56.136850823Z"
     dependencies:
     - name: common
@@ -15,6 +29,21 @@ entries:
     urls:
     - https://github.com/c1emon/helm-charts/releases/download/bark-0.1.0/bark-0.1.0.tgz
     version: 0.1.0
+  casdoor:
+  - apiVersion: v2
+    appVersion: v1.159.0
+    created: "2022-11-17T16:05:00.77579762Z"
+    dependencies:
+    - name: common
+      repository: https://helm-charts.clemon.icu
+      version: 0.2.4
+    description: A Helm chart for Casdoor
+    digest: 9b9227699698d54c33b45f8aeaec43a5f54400e57ef842f21fced6633d9ce041
+    name: casdoor
+    type: application
+    urls:
+    - https://github.com/c1emon/helm-charts/releases/download/casdoor-0.1.1/casdoor-0.1.1.tgz
+    version: 0.1.1
   common:
   - apiVersion: v2
     appVersion: 1.16.0
@@ -170,6 +199,20 @@ entries:
   hexo:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2022-11-17T16:05:00.935349386Z"
+    dependencies:
+    - name: common
+      repository: https://helm-charts.clemon.icu
+      version: 0.2.4
+    description: A Helm chart for Hexo
+    digest: 243a691a425f5a5c2928ef60e30b01d9e6415183efb2c69c3bbbd95e5497be31
+    name: hexo
+    type: application
+    urls:
+    - https://github.com/c1emon/helm-charts/releases/download/hexo-1.1.2/hexo-1.1.2.tgz
+    version: 1.1.2
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2022-07-27T17:55:36.132362644Z"
     dependencies:
     - name: common
@@ -216,4 +259,4 @@ entries:
     urls:
     - https://github.com/cjw7360/helm-charts/releases/download/hexo-0.1.0/hexo-0.1.0.tgz
     version: 0.1.0
-generated: "2022-11-17T16:01:51.743443622Z"
+generated: "2022-11-17T16:05:00.935432687Z"
