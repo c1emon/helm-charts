@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: casdoor-config
+data:
+  app.conf: |
+    appname = {{ include "common.fullname" . }}
+    httpport = {{ .Values.casdoor.port | default 8080 }}
+    runmode = {{ .Values.casdoor.runmode | default "dev" }}
+    SessionOn = true
+    copyrequestbody = true
+    driverName = {{ .Values.casdoor.db.driver | default "mysql" }}
+    dataSourceName = {{ .Values.casdoor.db.url | default "root:123456@tcp(localhost:3306)/" }}
+    dbName = {{ .Values.casdoor.db.name | default "casdoor" }}
+    redisEndpoint = {{ .Values.casdoor.redisEndpoint }}
+    defaultStorageProvider = 
+    isCloudIntranet = false
+    authState = "casdoor"
+    socks5Proxy = "127.0.0.1:10808"
+    verificationCodeTimeout = 10
+    initScore = 2000
+    logPostOnly = true
+    origin = "https://door.casbin.com"
