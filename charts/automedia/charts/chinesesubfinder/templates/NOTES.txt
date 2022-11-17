@@ -1,5 +1,13 @@
 {{- if .Values.enabled -}}
 ChineseSubFinder server enabled
+{{- if not .Values.persistence.enabled }}
+Warning: bark server now uses emptyDir as storage which maybe lose all data.
+{{- end }}
+Access via:
+1. inside  cluster: http://{{ include "common.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.service.port }}
+{{- if .Values.ingress.enabled }}
+2. outside cluster: http{{ if .Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.host }}
+{{- end }}
 {{- else }}
 ChineseSubFinder server disabled
 {{- end }}

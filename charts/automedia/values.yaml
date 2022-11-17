@@ -11,7 +11,7 @@ jackett:
   enabled: false
 
 nzget:
-  enabled: true
+  enabled: false
 
 ombi:
   enabled: true
