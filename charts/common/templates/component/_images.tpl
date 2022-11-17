@@ -27,6 +27,6 @@ Usage: {{ include "common.image" (dict "registry" "" "repository" "" "dig" "" "t
 {{- if .dig }}
 {{- printf "%s@%s" $image .dig }}
 {{- else -}}
-{{- printf "%s:%s" $image (.tag | default "latest") }}
+{{- printf "%s:%s" $image (.tag | default .Chart.AppVersion) }}
 {{- end }}
 {{- end }}
