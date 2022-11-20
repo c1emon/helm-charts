@@ -32,6 +32,20 @@ entries:
   casdoor:
   - apiVersion: v2
     appVersion: v1.159.0
+    created: "2022-11-20T16:10:28.7150387Z"
+    dependencies:
+    - name: common
+      repository: https://helm-charts.clemon.icu
+      version: 0.2.5
+    description: A Helm chart for Casdoor
+    digest: aff6f7da67f69b31a5f7b60141294de66a4c0bac2baa9f54d40e13c33dad6686
+    name: casdoor
+    type: application
+    urls:
+    - https://github.com/c1emon/helm-charts/releases/download/casdoor-0.1.2/casdoor-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: v1.159.0
     created: "2022-11-17T16:05:00.77579762Z"
     dependencies:
     - name: common
@@ -269,4 +283,4 @@ entries:
     urls:
     - https://github.com/cjw7360/helm-charts/releases/download/hexo-0.1.0/hexo-0.1.0.tgz
     version: 0.1.0
-generated: "2022-11-20T16:08:42.111982614Z"
+generated: "2022-11-20T16:10:28.715250011Z"
