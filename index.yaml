@@ -3,6 +3,20 @@ entries:
   bark:
   - apiVersion: v2
     appVersion: v2.1.4
+    created: "2022-11-20T16:36:41.644198174Z"
+    dependencies:
+    - name: common
+      repository: https://helm-charts.clemon.icu
+      version: 0.2.5
+    description: A Helm chart for Bark
+    digest: 92663da8483accb898d81d37d22d1748d375566b58551d4fc583e227a67da982
+    name: bark
+    type: application
+    urls:
+    - https://github.com/c1emon/helm-charts/releases/download/bark-0.2.0/bark-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: v2.1.4
     created: "2022-11-20T16:17:31.630111167Z"
     dependencies:
     - name: common
@@ -311,4 +325,4 @@ entries:
     urls:
     - https://github.com/cjw7360/helm-charts/releases/download/hexo-0.1.0/hexo-0.1.0.tgz
     version: 0.1.0
-generated: "2022-11-20T16:17:31.630185167Z"
+generated: "2022-11-20T16:36:41.644253974Z"
