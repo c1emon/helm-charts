@@ -27,9 +27,9 @@ spec:
               service:
                 name: {{ include "common.fullname" . }}
                 port:
-                  number: 8080
+                  number: {{ .Values.service.port }}
               {{- else }}
               serviceName: {{ include "common.fullname" . }}
-              servicePort: 8080
+              servicePort: {{ .Values.service.port }}
               {{- end }}
 {{- end }}

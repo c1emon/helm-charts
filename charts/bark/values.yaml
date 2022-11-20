@@ -16,27 +16,20 @@ serviceAccount:
   # Specifies whether a service account should be created
   create: true
 
-podAnnotations: {}
-
-podSecurityContext: {}
-  # fsGroup: 2000
-
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
-
 service:
   type: ClusterIP
+  port: 8080
 
 ingress:
   enabled: false
   className: "nginx"
   tls: false
   host: "bark.example.com"
+
+
+persistence:
+  storageClassName: ""
+  size: 1Gi
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -50,13 +43,13 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
-persistence:
-  enabled: false
-  storageClassName: openebs-hostpath
-  accessModes:
-    - ReadWriteOnce
-  size: 2Gi
-  # selectorLabels: {}
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
 
 nodeSelector: {}
 
