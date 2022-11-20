@@ -12,13 +12,15 @@ params:
   # optional
   tag: ""
 
-Usage: {{ include "common.image" (dict "registry" "" "repository" "" "dig" "" "tag" "") | quote }}
+Usage: {{ include "common.image" . | quote }}
 */}}
 {{- define "common.image" -}}
-{{- if not .repository }}
+{{- if not .Values.image.repository }}
 {{- fail "must provide repository" }}
 {{- end }}
 {{- $image := "" }}
+{{- $AppVersion := .Chart.AppVersion }}
+{{- with .Values.image }}
 {{- if .registry }}
 {{- $image = (printf "%s/%s" .registry .repository) }}
 {{- else }}
@@ -27,6 +29,7 @@ Usage: {{ include "common.image" (dict "registry" "" "repository" "" "dig" "" "t
 {{- if .dig }}
 {{- printf "%s@%s" $image .dig }}
 {{- else -}}
-{{- printf "%s:%s" $image (.tag | default .Chart.AppVersion) }}
+{{- printf "%s:%s" $image (.tag | default $AppVersion) }}
+{{- end }}
 {{- end }}
 {{- end }}
