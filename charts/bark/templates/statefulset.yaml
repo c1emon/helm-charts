@@ -40,7 +40,7 @@ spec:
       serviceAccountName: {{ include "bark.serviceAccountName" . }}
       containers:
         - name: {{ .Chart.Name }}
-          image: {{ (include "common.image" .Values.image) | quote }}
+          image: {{ (include "common.image" .) | quote }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
