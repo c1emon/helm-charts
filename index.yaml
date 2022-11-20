@@ -47,6 +47,16 @@ entries:
   common:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2022-11-20T16:08:42.111911313Z"
+    description: A chart library of common functions
+    digest: 3630fcebb46cb1b4badb9ec57cb3c0026e78bc3de6b5ba4d52d129b2c33592fa
+    name: common
+    type: library
+    urls:
+    - https://github.com/c1emon/helm-charts/releases/download/common-0.2.5/common-0.2.5.tgz
+    version: 0.2.5
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2022-11-17T16:01:51.74339082Z"
     description: A chart library of common functions
     digest: 8cac468ab60f73b421e4fcec1118ed0d59642af31ef5db9e9a7f8883072bd3ed
@@ -259,4 +269,4 @@ entries:
     urls:
     - https://github.com/cjw7360/helm-charts/releases/download/hexo-0.1.0/hexo-0.1.0.tgz
     version: 0.1.0
-generated: "2022-11-17T16:05:00.935432687Z"
+generated: "2022-11-20T16:08:42.111982614Z"
