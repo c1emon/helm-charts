@@ -223,6 +223,20 @@ entries:
   hexo:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2022-11-20T16:12:49.415217558Z"
+    dependencies:
+    - name: common
+      repository: https://helm-charts.clemon.icu
+      version: 0.2.5
+    description: A Helm chart for Hexo
+    digest: 28266338819034c8f65ce2e2275efed0bba1774217f06f54c22da482699a349b
+    name: hexo
+    type: application
+    urls:
+    - https://github.com/c1emon/helm-charts/releases/download/hexo-1.1.3/hexo-1.1.3.tgz
+    version: 1.1.3
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2022-11-17T16:05:00.935349386Z"
     dependencies:
     - name: common
@@ -283,4 +297,4 @@ entries:
     urls:
     - https://github.com/cjw7360/helm-charts/releases/download/hexo-0.1.0/hexo-0.1.0.tgz
     version: 0.1.0
-generated: "2022-11-20T16:10:28.715250011Z"
+generated: "2022-11-20T16:12:49.415295659Z"
