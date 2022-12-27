@@ -23,7 +23,7 @@ spec:
       {{- end }}
       serviceAccountName: {{ include "jackett.serviceAccountName" . }}
       containers:
-      - image: {{ (include "common.image" .Values.image) | quote }}
+      - image: {{ (include "common.image" .) | quote }}
         name: {{ .Chart.Name }}
         ports:
           - name: http
