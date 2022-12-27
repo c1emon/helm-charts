@@ -4,6 +4,10 @@
 
 enabled: true
 
+global:
+  persistence:
+    mediaPVCName: sss
+
 image:
   registry: "lscr.io/linuxserver"
   repository: "emby"
