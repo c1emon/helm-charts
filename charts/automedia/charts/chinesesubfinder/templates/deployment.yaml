@@ -23,11 +23,14 @@ spec:
       {{- end }}
       serviceAccountName: {{ include "chinesesubfinder.serviceAccountName" . }}
       containers:
-      - image: {{ (include "common.image" .Values.image) | quote }}
+      - image: {{ (include "common.image" .) | quote }}
         name: {{ .Chart.Name }}
         ports:
-          - name: http
+          - name: web
             containerPort: {{ .Values.containerPort | default 19035 }}
+            protocol: TCP
+          - name: pic
+            containerPort: 19037
             protocol: TCP
         volumeMounts:
           - name: media
@@ -49,6 +52,10 @@ spec:
           value: {{ .Values.GID | default 1000 }}
         - name: TZ
           value: {{ .Values.TZ | default "Asia/Shanghai" }}
+        - name: PERMS
+          value: {{ .Values.PERMS | default "false" }}
+        - name: UMASK
+          value: {{ .Values.UMASK | default 022 }}
         {{- with .Values.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
