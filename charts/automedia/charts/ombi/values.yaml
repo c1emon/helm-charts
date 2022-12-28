@@ -24,7 +24,6 @@ serviceAccount:
 
 persistence:
     storageClassName: hostpath
-    mediaPVCName: shared-media-pvc
 
 service:
   type: ClusterIP
