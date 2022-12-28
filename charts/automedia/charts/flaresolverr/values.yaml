@@ -22,10 +22,6 @@ serviceAccount:
   # Specifies whether a service account should be created
   create: true
 
-persistence:
-    storageClassName: hostpath
-    mediaPVCName: shared-media-pvc
-
 service:
   type: ClusterIP
   port: 8191

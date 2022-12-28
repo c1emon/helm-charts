@@ -1,8 +1,5 @@
 {{- if .Values.enabled -}}
 {{ .Chart.Name }} enabled
-{{- if eq .Values.persistence.storageClassName "hostpath" }}
-Warning: {{ .Chart.Name }} now uses hostpath to save config which maybe lose data after pod restart.
-{{- end }}
 Access via:
 1. inside cluster: http://{{ include "common.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.service.port }}
 {{- if .Values.ingress.enabled }}
