@@ -49,6 +49,8 @@ spec:
           value: {{ .Values.GID | default 1000 }}
         - name: TZ
           value: {{ .Values.TZ | default "Asia/Shanghai" }}
+        - name: AUTO_UPDATE
+          value: false
         {{- with .Values.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
