@@ -8,6 +8,7 @@ Access via:
 {{- if .Values.ingress.enabled }}
 2. outside cluster: http{{ if .Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.host }}
 {{- end }}
+BT listens on {{ .Values.btPort }}
 {{- else }}
 {{ .Chart.Name }} disabled
 {{- end }}

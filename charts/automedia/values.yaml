@@ -28,9 +28,6 @@ sonarr:
 chinesesubfinder:
   enabled: true
 
-subfinder:
-  enabled: false
-
 persistence:
   storageClassName: hostpath
   storage: 1000Gi

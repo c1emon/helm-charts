@@ -12,14 +12,14 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
-    - port: 6881
-      targetPort: bt-tcp
-      protocol: TCP
-      name: bt-tcp
-    - port: 6881
-      targetPort: bt-udp
-      protocol: UDP
-      name: bt-udp
+    # - port: 6881
+    #   targetPort: bt-tcp
+    #   protocol: TCP
+    #   name: bt-tcp
+    # - port: 6881
+    #   targetPort: bt-udp
+    #   protocol: UDP
+    #   name: bt-udp
   selector:
     {{- include "common.deploy.selectorLabels" . | nindent 4 }}
 ---
