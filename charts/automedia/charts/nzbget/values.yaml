@@ -4,9 +4,6 @@
 
 enabled: false
 
-# default login info
-# login:nzbget, password:tegbzn6789
-
 image:
   registry: "lscr.io/linuxserver"
   repository: "nzbget"
@@ -18,6 +15,8 @@ image:
 GID: 1000
 UID: 1000
 TZ: Asia/Shanghai
+USER: nzbget
+PASSWD: tegbzn6789
 
 imagePullSecrets: []
 

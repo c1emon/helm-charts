@@ -41,6 +41,10 @@ spec:
           value: {{ .Values.GID | default 1000 }}
         - name: TZ
           value: {{ .Values.TZ | default "Asia/Shanghai" }}
+        - name: NZBGET_USER
+          value: {{ .Values.USER }}
+        - name: NZBGET_PASS
+          value: {{ .Values.PASSWD }}
         {{- with .Values.resources }}
           resources:
             {{- toYaml . | nindent 12 }}

@@ -8,6 +8,10 @@ Access via:
 {{- if .Values.ingress.enabled }}
 2. outside cluster: http{{ if .Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.host }}
 {{- end }}
+
+Login info:
+user: {{ .Values.USER }}
+password: {{ .Values.PASSWD }}
 {{- else }}
 {{ .Chart.Name }} disabled
 {{- end }}
